@@ -4,11 +4,17 @@
 
 
 
-void readFile(const std::string& newbooks, const std::string& request){
-    std::ifstream inputFile(newbooks);
-    std::ifstream inputFile(request);
+void readFile(const std::string& file){
+    std::ifstream inputFile(file);
 
-    std::cout << "Reading file: " << newbooks << std::endl;
+    //std::cout << "Reading file: " << file << std::endl;
+    std::string line;
+    std::cout << file << ": " << std::endl;
+    while (std::getline(inputFile, line)) {
+        
+        std::cout << line << std::endl; 
+    }
+
 }
 
 class Book{
@@ -27,12 +33,13 @@ class Book{
             this->number = number;
             this->language = language;
             this->format = format;
-        }
-}
+        };
+};
 
 int main(int argc, char *argv[]){
     std::string newbooks = argv[1];
     std::string request = argv[2];
-    readFile(newbooks, request);
+    readFile(newbooks);
+    readFile(request);
     return 0;
 }
