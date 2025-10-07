@@ -4,14 +4,18 @@
 
 
 
-void readFile(const std::string& newbooks.dat, const std::string& request.dat){
-    std::ifstream inputFile(newbooks.dat);
-    std::ifstream inputFile(request.dat);
+void readFile(const std::string& newbooks, const std::string& request){
+    std::ifstream inputFile(newbooks);
+    std::ifstream inputFile(request);
 
-    std::cout << "Reading file: " << newbooks.dat << std::endl;
+    std::cout << "Reading file: " << newbooks << std::endl;
 }
 
+
+
 int main(int argc, char *argv[]){
-    readFile(argv[1], argv[2]);
+    std::string newbooks = argv[1];
+    std::string request = argv[2];
+    readFile(newbooks, request);
     return 0;
 }
