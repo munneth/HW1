@@ -12,11 +12,22 @@ void readFile(const std::string& newbooks, const std::string& request){
 }
 
 class Book{
-    public:
+    private:
         int number;
         std::string language;
         std::string format;
-        
+    public:
+        //getter's
+        int getNumber(){return number;}
+        std::string getLanguage(){return language;}
+        std::string getFormat(){return format;}
+
+        //constructor
+        Book(int number, std::string language, std::string format){
+            this->number = number;
+            this->language = language;
+            this->format = format;
+        }
 }
 
 int main(int argc, char *argv[]){
