@@ -1,17 +1,19 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <tuple>
 
 
 
 void readFile(const std::string& file){
     std::ifstream inputFile(file);
-
+    std::vector<std::tuple<std::string, std::string, std::string>> books;
     //std::cout << "Reading file: " << file << std::endl;
     std::string line;
     std::cout << file << ": " << std::endl;
     while (std::getline(inputFile, line)) {
-        
+        books.push_back(std::make_tuple(line));
         std::cout << line << std::endl; 
     }
 
