@@ -17,6 +17,25 @@ void readFile(const std::string& file){
 
 }
 
+char getSearchMethod() {
+    std::string input;
+    
+    while (true) {
+        std::cout << "Choice of search method ([l]inear, [b]inary, [r]ecursiveBinary)? ";
+        std::cin >> input;
+        
+        //check if input is exactly one character and is valid
+        if (input.length() == 1) {
+            char choice = tolower(input[0]);
+            if (choice == 'l' || choice == 'b' || choice == 'r') {
+                return choice;
+            }
+        }
+        
+        std::cout << "Incorrect choice" << std::endl;
+    }
+}
+
 class Book{
     private:
         int number;
@@ -41,5 +60,10 @@ int main(int argc, char *argv[]){
     std::string request = argv[2];
     readFile(newbooks);
     readFile(request);
+    
+    
+    char searchMethod = getSearchMethod();
+    std::cout << "Selected search method: " << searchMethod << std::endl;
+    
     return 0;
 }
