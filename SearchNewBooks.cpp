@@ -56,8 +56,8 @@ std::vector<Book> readFile(const std::string& file){
         size_t comma2 = line.find(',', comma1 + 1);
         
         int isbn = std::stoi(line.substr(0, comma1));
-        std::string type = line.substr(comma1 + 1, comma2 - comma1 - 1);
-        std::string language = line.substr(comma2 + 1);
+        std::string language = line.substr(comma1 + 1, comma2 - comma1 - 1);
+        std::string type = line.substr(comma2 + 1);
         
         books.push_back(Book(isbn, type, language));
         std::cout << line << std::endl;
