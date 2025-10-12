@@ -83,6 +83,27 @@ int linSearch(std::vector<Book>& books, std::vector<Book>& requests){
     return counter;
 }
 
+int binSearch(std::vector<Book>& books, std::vector<Book>& requests){
+    auto counter = 0;
+
+    for(const auto& request : requests){
+        int low = 0;
+        int high = books.size() - 1;
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            if (books[mid] == request){
+                counter++;
+                break;
+            }else if (books[mid] < request){
+                low = mid + 1;
+            }else{
+                high = mid - 1;
+            }
+        }
+    }
+    return counter;
+}
+
 int getTypePriority(const std::string& type) {
     if (type == "new") return 0;
     if (type == "used") return 1;
@@ -136,6 +157,7 @@ int main(int argc, char *argv[]){
 
     std::cout << "--------------------------------\nLinear Search\n--------------------------------\n";
     std::cout << linSearch(newBooksVector, requestVector) << std::endl;
-    
+    std::cout << "--------------------------------\nBinary Search\n--------------------------------\n";
+    std::cout << binSearch(newBooksVector, requestVector) << std::endl;
     return 0;
 }
