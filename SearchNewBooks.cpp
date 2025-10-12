@@ -42,6 +42,10 @@ class Book{
                 return this->language < other.language;
             }
         }
+
+        bool operator==(const Book& other) const {
+            return this->isbn == other.isbn && this->type == other.type && this->language == other.language;
+        }
 };
 
 /*
@@ -65,13 +69,18 @@ std::vector<Book> readFile(const std::string& file){
     return books;
 }
 
-std::string linSearch(std::vector<std::string>& books, std::string& request){
-    for(const std::string& book : books){
-        if(book == request){
-            return book;
+int linSearch(std::vector<Book>& books, std::vector<Book>& requests){
+    auto counter = 0;
+    for(const auto& request : requests){
+        for(const auto& book : books){
+            if(book == request){
+                std::cout << book.getISBN() << " " << book.getType() << " " << book.getLanguage() << std::endl;
+                counter++;
+                break;
+            }
         }
     }
-    return "Not found";
+    return counter;
 }
 
 int getTypePriority(const std::string& type) {
@@ -124,6 +133,9 @@ int main(int argc, char *argv[]){
     for (const auto& book : newBooksVector){
         std::cout << book.getISBN() << " " << book.getType() << " " << book.getLanguage() << std::endl;
     }
+
+    std::cout << "--------------------------------\nLinear Search\n--------------------------------\n";
+    std::cout << linSearch(newBooksVector, requestVector) << std::endl;
     
     return 0;
 }
