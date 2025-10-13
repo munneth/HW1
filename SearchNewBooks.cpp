@@ -6,6 +6,13 @@
 #include <tuple>
 #include <vector>
 
+using namespace std::chrono;
+
+class Timer {
+    private:
+    high_resolution_clock::time_point start_time;
+    public:
+}
 class Book {
  private:
   int isbn;
@@ -171,6 +178,7 @@ char getSearchMethod() {
 }
 
 int main(int argc, char* argv[]) {
+  //auto start = high_resolution_clock::now();
   std::string newbooks = argv[1];
   std::string request = argv[2];
   std::vector<Book> newBooksVector = readFile(newbooks);
@@ -189,7 +197,11 @@ int main(int argc, char* argv[]) {
   if (choice == 'l') {
     std::cout << "--------------------------------\nLinear "
                  "Search\n--------------------------------\n";
+    auto start = high_resolution_clock::now();
     std::cout << linSearch(newBooksVector, requestVector) << std::endl;
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    std::cout << "time taken: " << duration.count() << " microseconds" << std::endl;
   } else if (choice == 'b') {
     std::cout << "--------------------------------\nBinary "
                  "Search\n--------------------------------\n";
