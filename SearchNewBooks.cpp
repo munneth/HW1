@@ -202,29 +202,35 @@ int main(int argc, char* argv[]) {
   // char searchMethod = getSearchMethod();
   // std::cout << "Selected search method: " << searchMethod << std::endl;
 
-  sortBooks(newBooksVector);
+  
   /* for (const auto& book : newBooksVector){
        std::cout << book.getISBN() << " " << book.getType() << " " <<
    book.getLanguage() << std::endl;
    }*/
-
+  Timer ct;
+  ct.Reset();
   char choice = getSearchMethod();
   if (choice == 'l') {
     std::cout << "--------------------------------\nLinear "
                  "Search\n--------------------------------\n";
-    auto start = high_resolution_clock::now();
+    //auto start = high_resolution_clock::now();
     std::cout << linSearch(newBooksVector, requestVector) << std::endl;
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    std::cout << "time taken: " << duration.count() << " microseconds" << std::endl;
+    //auto stop = high_resolution_clock::now();
+    //auto duration = duration_cast<microseconds>(stop - start);
+    //std::cout << "time taken: " << duration.count() << " microseconds" << std::endl;
+    ct.printElapsedTime();
   } else if (choice == 'b') {
+    sortBooks(newBooksVector);
     std::cout << "--------------------------------\nBinary "
                  "Search\n--------------------------------\n";
     std::cout << binSearch(newBooksVector, requestVector) << std::endl;
+    ct.printElapsedTime();
   } else if (choice == 'r') {
+    sortBooks(newBooksVector);
     std::cout << "--------------------------------\nRecursive Binary "
                  "Search\n--------------------------------\n";
     std::cout << recursiveBinSearch(newBooksVector, requestVector) << std::endl;
+    ct.printElapsedTime();
   }
   return 0;
 }
