@@ -9,10 +9,25 @@
 using namespace std::chrono;
 
 class Timer {
-    private:
-    high_resolution_clock::time_point start_time;
-    public:
-}
+  private:
+    std::chrono::high_resolution_clock::time_point start;
+  public:
+    void Reset() {
+      start = std::chrono::high_resolution_clock::now();
+    }
+    
+    double getMicroseconds() {
+      auto end = std::chrono::high_resolution_clock::now();
+      auto duration = std::chrono::duration<double, std::micro>(end - start).count();
+      return duration.count();
+    }
+    
+    void printElapsedTime() {
+      double time = getElapsedMicroseconds();
+      std::cout << "CPU time: " << time << " microseconds" << std::endl;
+    }
+};
+
 class Book {
  private:
   int isbn;
