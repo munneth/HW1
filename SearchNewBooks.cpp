@@ -104,6 +104,32 @@ int binSearch(std::vector<Book>& books, std::vector<Book>& requests){
     return counter;
 }
 
+int recursiveBinSearchHelper(const std::vector<Book>& books, const Book& target, int low, int high) {
+    if (low > high) {
+        return 0; // Not found
+    }
+    
+    int mid = low + (high - low) / 2;
+    
+    if (books[mid] == target) {
+        return 1; // Found
+    } else if (books[mid] < target) {
+        return recursiveBinSearchHelper(books, target, mid + 1, high);
+    } else {
+        return recursiveBinSearchHelper(books, target, low, mid - 1);
+    }
+}
+
+int recursiveBinSearch(const std::vector<Book>& books, const std::vector<Book>& requests) {
+    auto counter = 0;
+    
+    for (const auto& request : requests) {
+        counter += recursiveBinSearchHelper(books, request, 0, books.size() - 1);
+    }
+    
+    return counter;
+}
+
 int getTypePriority(const std::string& type) {
     if (type == "new") return 0;
     if (type == "used") return 1;
@@ -159,5 +185,7 @@ int main(int argc, char *argv[]){
     std::cout << linSearch(newBooksVector, requestVector) << std::endl;
     std::cout << "--------------------------------\nBinary Search\n--------------------------------\n";
     std::cout << binSearch(newBooksVector, requestVector) << std::endl;
+    std::cout << "--------------------------------\nRecursive Binary Search\n--------------------------------\n";
+    std::cout << recursiveBinSearch(newBooksVector, requestVector) << std::endl;
     return 0;
 }
