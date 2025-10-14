@@ -21,11 +21,12 @@ bool Book::operator<(const Book& other) const {
     std::vector<std::string> typeOrder = {"new", "used", "digital"};
     int thisIndex = -1, otherIndex = -1;
 
-    for (int i = 0; i < typeOrder.size(); i++) {
+    for (size_t i = 0; i < typeOrder.size(); i++) {
       if (this->type == typeOrder[i]) thisIndex = i;
       if (other.type == typeOrder[i]) otherIndex = i;
     }
 
+    
     return thisIndex < otherIndex;
   } else {
     return this->language < other.language;

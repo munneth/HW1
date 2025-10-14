@@ -43,13 +43,13 @@ int binSearch(std::vector<Book>& books, std::vector<Book>& requests) {
 // Recursive binary search helper
 int recursiveBinSearchHelper(const std::vector<Book>& books, const Book& target, int low, int high) {
   if (low > high) {
-    return 0;  // Not found
+    return 0;  
   }
 
   int mid = low + (high - low) / 2;
 
   if (books[mid] == target) {
-    return 1;  // Found
+    return 1;  
   } else if (books[mid] < target) {
     return recursiveBinSearchHelper(books, target, mid + 1, high);
   } else {
@@ -68,13 +68,6 @@ int recursiveBinSearch(const std::vector<Book>& books, const std::vector<Book>& 
   return counter;
 }
 
-// Get type priority for sorting
-int getTypePriority(const std::string& type) {
-  if (type == "new") return 0;
-  if (type == "used") return 1;
-  if (type == "digital") return 2;
-  return 3;  // Default for any other type
-}
 
 // Sort books
 void sortBooks(std::vector<Book>& books) {
@@ -89,10 +82,11 @@ std::vector<Book> readFile(const std::string& file) {
   while (std::getline(inputFile, line)) {
     size_t comma1 = line.find(',');
     size_t comma2 = line.find(',', comma1 + 1);
-
+//didnt let me ussse C cast here
     int isbn = std::stoi(line.substr(0, comma1));
     std::string language = line.substr(comma1 + 1, comma2 - comma1 - 1);
     std::string type = line.substr(comma2 + 1);
+//create array of objects
 
     books.push_back(Book(isbn, type, language));
   }
@@ -107,7 +101,7 @@ char getSearchMethod() {
     std::cout << "Choice of search method ([l]inear, [b]inary, [r]ecursiveBinary)? ";
     std::cin >> input;
 
-    // check if input is exactly one character and is valid
+    
     if (input.length() == 1) {
       char choice = tolower(input[0]);
       if (choice == 'l' || choice == 'b' || choice == 'r') {

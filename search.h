@@ -12,7 +12,6 @@ int recursiveBinSearch(const std::vector<Book>& books, const std::vector<Book>& 
 // Helper functions
 int recursiveBinSearchHelper(const std::vector<Book>& books, const Book& target, int low, int high);
 void sortBooks(std::vector<Book>& books);
-int getTypePriority(const std::string& type);
 
 // File operations
 std::vector<Book> readFile(const std::string& file);

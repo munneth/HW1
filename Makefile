@@ -1,47 +1,23 @@
+# Simple Makefile for SearchNewBooks
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra
-TARGET = SearchNewBooks
-TEST_TARGET = test
-
-# Source files
-MAIN_SRC = SearchNewBooks.cpp
-BOOK_SRC = book.cpp
-SEARCH_SRC = search.cpp
-TIMER_SRC = timer.cpp
-TEST_SRC = test.cpp
-
-# Object files
-MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
-BOOK_OBJ = $(BOOK_SRC:.cpp=.o)
-SEARCH_OBJ = $(SEARCH_SRC:.cpp=.o)
-TIMER_OBJ = $(TIMER_SRC:.cpp=.o)
-TEST_OBJ = $(TEST_SRC:.cpp=.o)
-
-# Default target
-all: $(TARGET) $(TEST_TARGET)
+CXXFLAGS = -Wall -Werror -std=c++11
 
 # Main program
-$(TARGET): $(MAIN_OBJ) $(BOOK_OBJ) $(SEARCH_OBJ) $(TIMER_OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+SearchNewBooks: SearchNewBooks.cpp book.cpp search.cpp timer.cpp
+	$(CXX) $(CXXFLAGS) -o SearchNewBooks SearchNewBooks.cpp book.cpp search.cpp timer.cpp
 
-# Test program
-$(TEST_TARGET): $(TEST_OBJ) $(BOOK_OBJ) $(SEARCH_OBJ) $(TIMER_OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+# Simple tests
+test: test.cpp book.cpp search.cpp timer.cpp
+	$(CXX) $(CXXFLAGS) -o test test.cpp book.cpp search.cpp timer.cpp
+	./test
 
-# Compile source files to object files
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Google Test (requires gtest library)
+gtest: hello_test.cc book.cpp search.cpp timer.cpp
+	$(CXX) $(CXXFLAGS) -o gtest hello_test.cc book.cpp search.cpp timer.cpp -lgtest -lgtest_main -pthread
+	./gtest
 
-# Clean up
+# Clean up all generated files
 clean:
-	rm -f *.o $(TARGET) $(TEST_TARGET)
+	rm -f SearchNewBooks test gtest *.o *.dat
 
-# Run tests
-test: $(TEST_TARGET)
-	./$(TEST_TARGET)
-
-# Run main program with test data
-run: $(TARGET)
-	./$(TARGET) newbooks.dat request.dat
-
-.PHONY: all clean test run
+.PHONY: test gtest clean
