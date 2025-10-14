@@ -196,7 +196,12 @@ int main(int argc, char* argv[]) {
   //auto start = high_resolution_clock::now();
   std::string newbooks = argv[1];
   std::string request = argv[2];
-  std::string output = argv[3];
+  std::string output;
+  if (argc > 3) {
+    output = argv[3];
+  } else {
+    output = "found.dat";
+  }
   std::vector<Book> newBooksVector = readFile(newbooks);
   std::vector<Book> requestVector = readFile(request);
 
@@ -211,27 +216,36 @@ int main(int argc, char* argv[]) {
   Timer ct;
   ct.Reset();
   char choice = getSearchMethod();
+  int count = 0;
+  
   if (choice == 'l') {
     std::cout << "--------------------------------\nLinear "
                  "Search\n--------------------------------\n";
-    //auto start = high_resolution_clock::now();
-    std::cout << linSearch(newBooksVector, requestVector) << std::endl;
-    //auto stop = high_resolution_clock::now();
-    //auto duration = duration_cast<microseconds>(stop - start);
-    //std::cout << "time taken: " << duration.count() << " microseconds" << std::endl;
+    count = linSearch(newBooksVector, requestVector);
+    std::cout << count << std::endl;
     ct.printElapsedTime();
   } else if (choice == 'b') {
     sortBooks(newBooksVector);
     std::cout << "--------------------------------\nBinary "
                  "Search\n--------------------------------\n";
-    std::cout << binSearch(newBooksVector, requestVector) << std::endl;
+    count = binSearch(newBooksVector, requestVector);
+    std::cout << count << std::endl;
     ct.printElapsedTime();
   } else if (choice == 'r') {
     sortBooks(newBooksVector);
     std::cout << "--------------------------------\nRecursive Binary "
                  "Search\n--------------------------------\n";
-    std::cout << recursiveBinSearch(newBooksVector, requestVector) << std::endl;
+    count = recursiveBinSearch(newBooksVector, requestVector);
+    std::cout << count << std::endl;
     ct.printElapsedTime();
   }
+  
+  // Write result to file
+  std::ofstream outputFile(output);
+  if (outputFile.is_open()) {
+    outputFile << count << std::endl;
+    outputFile.close();
+  }
+  
   return 0;
 }
