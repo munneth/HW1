@@ -19,11 +19,11 @@ class Timer {
     double getMicroseconds() {
       auto end = std::chrono::high_resolution_clock::now();
       auto duration = std::chrono::duration<double, std::micro>(end - start).count();
-      return duration.count();
+      return duration;
     }
     
     void printElapsedTime() {
-      double time = getElapsedMicroseconds();
+      double time = getMicroseconds();
       std::cout << "CPU time: " << time << " microseconds" << std::endl;
     }
 };
@@ -87,7 +87,7 @@ std::vector<Book> readFile(const std::string& file) {
     std::string type = line.substr(comma2 + 1);
 
     books.push_back(Book(isbn, type, language));
-    std::cout << line << std::endl;
+    //std::cout << line << std::endl;
   }
   return books;
 }
@@ -97,8 +97,8 @@ int linSearch(std::vector<Book>& books, std::vector<Book>& requests) {
   for (const auto& request : requests) {
     for (const auto& book : books) {
       if (book == request) {
-        std::cout << book.getISBN() << " " << book.getType() << " "
-                  << book.getLanguage() << std::endl;
+        //std::cout << book.getISBN() << " " << book.getType() << " "
+         //         << book.getLanguage() << std::endl;
         counter++;
         break;
       }
@@ -196,6 +196,7 @@ int main(int argc, char* argv[]) {
   //auto start = high_resolution_clock::now();
   std::string newbooks = argv[1];
   std::string request = argv[2];
+  std::string output = argv[3];
   std::vector<Book> newBooksVector = readFile(newbooks);
   std::vector<Book> requestVector = readFile(request);
 
