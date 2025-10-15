@@ -11,9 +11,9 @@ test: test.cpp book.cpp search.cpp timer.cpp
 	$(CXX) $(CXXFLAGS) -o test test.cpp book.cpp search.cpp timer.cpp
 	./test
 
-# Google Test (requires gtest library)
+# Google Test (requires gtest library and C++14)
 gtest: hello_test.cc book.cpp search.cpp timer.cpp
-	$(CXX) $(CXXFLAGS) -o gtest hello_test.cc book.cpp search.cpp timer.cpp -lgtest -lgtest_main -pthread
+	$(CXX) -Wall -Werror -std=c++14 -o gtest hello_test.cc book.cpp search.cpp timer.cpp -lgtest -lgtest_main -pthread
 	./gtest
 
 # Clean up all generated files

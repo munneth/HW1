@@ -5,6 +5,9 @@
 #include <string>
 
 // Linear search implementation
+// loop through requests and books and check if they are equal
+// this runs in O(n^2) time
+// nested for loop adds to counter if a match is found
 int linSearch(std::vector<Book>& books, std::vector<Book>& requests) {
   auto counter = 0;
   for (const auto& request : requests) {
@@ -19,6 +22,11 @@ int linSearch(std::vector<Book>& books, std::vector<Book>& requests) {
 }
 
 // Binary search implementation
+// loop through requests and books and check if they are equal
+// this runs in O(nlogn) time
+// binary search is used to find the book in the books vector
+// if the book is found, the counter is incremented
+// if the book is not found, the counter is not incremented
 int binSearch(std::vector<Book>& books, std::vector<Book>& requests) {
   auto counter = 0;
 
@@ -41,6 +49,9 @@ int binSearch(std::vector<Book>& books, std::vector<Book>& requests) {
 }
 
 // Recursive binary search helper
+// this runs in O(logn) time
+// essentially is binary search however it recurses if there is not a match found
+// called within a for loop for each request book in the recursive bin search
 int recursiveBinSearchHelper(const std::vector<Book>& books, const Book& target, int low, int high) {
   if (low > high) {
     return 0;  
@@ -58,6 +69,8 @@ int recursiveBinSearchHelper(const std::vector<Book>& books, const Book& target,
 }
 
 // Recursive binary search
+// this runs in O(nlogn) time
+// a foor loop that is used to call the recursive bin search helper for each request book
 int recursiveBinSearch(const std::vector<Book>& books, const std::vector<Book>& requests) {
   auto counter = 0;
 
@@ -70,11 +83,16 @@ int recursiveBinSearch(const std::vector<Book>& books, const std::vector<Book>& 
 
 
 // Sort books
+// essentially just uess std::sort which utilizes operators such as == and < to make its decisions these operators are
+// overloaded under the hood in the book class specially < and ==
 void sortBooks(std::vector<Book>& books) {
   std::sort(books.begin(), books.end());
 }
 
 // Read file function
+// we ues a while loops to read the file and find the commas so we know how to parse the line
+// we then parse it into the variables that we need
+
 std::vector<Book> readFile(const std::string& file) {
   std::ifstream inputFile(file);
   std::vector<Book> books;
@@ -87,7 +105,9 @@ std::vector<Book> readFile(const std::string& file) {
     std::string language = line.substr(comma1 + 1, comma2 - comma1 - 1);
     std::string type = line.substr(comma2 + 1);
 //create array of objects
-
+// this adds to vector by pushing back the book object
+// using objects instead of usual values allows us to use the operators == and < to make its decisions and call other functions
+// on these members
     books.push_back(Book(isbn, type, language));
   }
   return books;
