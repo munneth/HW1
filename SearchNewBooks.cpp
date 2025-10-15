@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
   std::vector<Book> requestVector = readFile(request);
   // start timer and create object to call print elapsed time
   Timer ct;
-  ct.Reset();
+  
   // get search method preferred and store it
   char choice = getSearchMethod();
   int count = 0;
@@ -29,6 +29,7 @@ int main(int argc, char* argv[]) {
   if (choice == 'l') {
     //std::cout << "--------------------------------\nLinear "
     //             "Search\n--------------------------------\n";
+    ct.Reset();
     count = linSearch(newBooksVector, requestVector);
     std::cout << count << std::endl;
     // when search is done the time is printed and stopped also the count is called above it 
@@ -38,6 +39,7 @@ int main(int argc, char* argv[]) {
     sortBooks(newBooksVector);
     //std::cout << "--------------------------------\nBinary "
     //             "Search\n--------------------------------\n";
+    ct.Reset();
     count = binSearch(newBooksVector, requestVector);
     std::cout << count << std::endl;
     // when search is done the time is printed and stopped also the count is called above it 
@@ -46,6 +48,7 @@ int main(int argc, char* argv[]) {
     sortBooks(newBooksVector);
     //std::cout << "--------------------------------\nRecursive Binary "
     //             "Search\n--------------------------------\n";
+    ct.Reset();
     count = recursiveBinSearch(newBooksVector, requestVector);
     std::cout << count << std::endl;
     ct.printElapsedTime();
